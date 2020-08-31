@@ -10,7 +10,7 @@ import java.util.Scanner;
  *
  */
 public class CustomScanner {
-	
+
 	public static Scanner sc = new Scanner(System.in);
 
 }
