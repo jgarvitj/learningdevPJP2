@@ -11,7 +11,7 @@ import org.junit.Test;
  * @author user
  *
  */
-public class AppTest {
+public class DateTimeInstanceTest {
 
 	@Test
 	public void test() {
