@@ -25,7 +25,7 @@ public class App {
 		String fileName = date.format(formatter);
 		// System.out.println(fileName);
 		Record.setFileName(
-				"C:\\Users\\user\\eclipse-workspace\\dateTimeCalculator\\SessionHistory\\" + fileName + ".csv");
+				"C:\\Users\\user\\eclipse-workspace\\dateTimeCalculator\\Data\\SessionHistory\\" + fileName + ".csv");
 		System.out.println(Record.getFileName());
 		File sessionHistory = new File(Record.getFileName());
 		try {

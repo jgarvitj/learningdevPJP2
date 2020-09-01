@@ -68,6 +68,7 @@ public class DateTime {
 			System.out.println("Press a to know about today");
 			System.out.println("Press h to check history of operations in this session");
 			System.out.println("Press c to calculate date");
+			System.out.println("Press p to go to a date by entering phrases");
 			System.out.println("Choose operation");
 
 			try {
