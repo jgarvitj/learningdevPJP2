@@ -3,6 +3,7 @@
  */
 package dateTimeCalculator;
 
+import databaseManagement.FileOperations;
 import inputOutput.CustomScanner;
 import inputOutput.History;
 
@@ -39,7 +40,7 @@ public class DateTime {
 	class DateTimeInstance implements Runnable {
 
 		private boolean checkChoice(char choice) {
-			if (choice == 'a' || choice == 'h' || choice == 'c') {
+			if (choice == 'a' || choice == 'h' || choice == 'c' || choice == 'p' || choice == 'i') {
 				return true;
 			}
 			return false;
@@ -62,7 +63,13 @@ public class DateTime {
 				History.getSessionHistory();
 			}
 			if(choice == 'p') {
-				
+				Translator translator = new Translator();
+				Thread tThread = new Thread(translator);
+				tThread.start();
+				tThread.join();
+			}
+			if(choice == 'i') {
+				FileOperations.operateFileRequest();
 			}
 		}
 

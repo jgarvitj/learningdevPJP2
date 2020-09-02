@@ -18,16 +18,15 @@ import language.Language;
  */
 public class AboutToday implements Runnable {
 
-	public void run() {
-
+	
+	
+	public static void findResult(char choice) {
+		System.out.println("at");
 		String languageTag = Language.getLanguageTag();
 		Locale locale = new Locale(languageTag);
-		System.out.println("Choose d to know day and w to know week number");
-		char choice = CustomScanner.sc.findInLine(".").charAt(0);
-		CustomScanner.sc.nextLine();
 		LocalDate today = LocalDate.now();
-
 		String result;
+		
 		if (choice == 'd') {
 			result = today.getDayOfWeek().getDisplayName(TextStyle.FULL, locale);
 		} else {
@@ -42,6 +41,18 @@ public class AboutToday implements Runnable {
 			e.printStackTrace();
 		}
 
+	}
+	
+	public void run() {
+
+		
+		
+		System.out.println("Choose d to know day and w to know week number");
+		char choice = CustomScanner.sc.findInLine(".").charAt(0);
+		CustomScanner.sc.nextLine();
+		
+		findResult(choice);
+		
 	}
 
 }
