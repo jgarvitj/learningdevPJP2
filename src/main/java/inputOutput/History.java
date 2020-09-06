@@ -9,13 +9,12 @@ package inputOutput;
  */
 public class History {
 
-	public static void getSessionHistory() {
+	public static String getSessionHistory() {
 
 		// print output in console
 		// print 10 sets of output in one go
 		// press e to exit
-		// press any key to continue
-
+		return "en-US,About Today,d,Monday";
 	}
 
 }

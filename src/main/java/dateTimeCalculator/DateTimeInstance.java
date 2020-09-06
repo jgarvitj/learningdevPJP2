@@ -48,7 +48,7 @@ class DateTimeInstance implements Runnable {
 			goToThread.join();
 		}
 		if (choice == 'h') {
-			History.getSessionHistory();
+			System.out.println(History.getSessionHistory());
 		}
 		if (choice == 'p') {
 //			translator = new Translator();
