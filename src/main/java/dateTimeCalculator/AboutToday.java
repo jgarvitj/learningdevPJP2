@@ -9,6 +9,8 @@ import java.time.format.TextStyle;
 import java.time.temporal.WeekFields;
 import java.util.Locale;
 
+import org.springframework.stereotype.Component;
+
 import inputOutput.*;
 import language.Language;
 
@@ -16,17 +18,17 @@ import language.Language;
  * @author Garvit Jain
  *
  */
+
+@Component
 public class AboutToday implements Runnable {
 
-	
-	
 	public static void findResult(char choice) {
 		System.out.println("at");
 		String languageTag = Language.getLanguageTag();
 		Locale locale = new Locale(languageTag);
 		LocalDate today = LocalDate.now();
 		String result;
-		
+
 		if (choice == 'd') {
 			result = today.getDayOfWeek().getDisplayName(TextStyle.FULL, locale);
 		} else {
@@ -42,17 +44,15 @@ public class AboutToday implements Runnable {
 		}
 
 	}
-	
+
 	public void run() {
 
-		
-		
 		System.out.println("Choose d to know day and w to know week number");
 		char choice = CustomScanner.sc.findInLine(".").charAt(0);
 		CustomScanner.sc.nextLine();
-		
+
 		findResult(choice);
-		
+
 	}
 
 }

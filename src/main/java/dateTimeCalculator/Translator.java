@@ -7,6 +7,8 @@ package dateTimeCalculator;
 import java.io.IOException;
 import java.time.LocalDate;
 
+import org.springframework.stereotype.Component;
+
 import inputOutput.CustomScanner;
 import inputOutput.Record;
 import language.Language;
@@ -15,6 +17,8 @@ import language.Language;
  * @author Garvit Jain
  *
  */
+
+@Component
 public class Translator implements Runnable {
 
 	private static LocalDate date = LocalDate.now();

@@ -3,19 +3,51 @@
  */
 package dateTimeCalculator;
 
-import databaseManagement.FileOperations;
+import java.io.File;
+import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
 import inputOutput.CustomScanner;
-import inputOutput.History;
+import inputOutput.Record;
+import language.Language;
 
 /**
  * @author Garvit Jain
  *
  */
+
+@Component
 public class DateTime {
 
-	public void calcRunner() {
+	@Autowired
+	private DateTimeInstance operation;
 
-		DateTimeInstance operation = new DateTimeInstance();
+	private void operationRunner() {
+		// Language selection
+		System.out.println("Press 1 for en-US");
+		System.out.println("Press 2 for en-GB");
+		System.out.println("Press 3 for fr");
+		System.out.println("Press 4 for en-IN");
+
+		int lt = CustomScanner.sc.nextInt();
+		CustomScanner.sc.nextLine();
+		String languageTag;
+		if (lt == 1) {
+			languageTag = "en-US";
+		} else if (lt == 3) {
+			languageTag = "fr";
+		} else if (lt == 4) {
+			languageTag = "en-IN";
+		} else {
+			languageTag = "en-GB";
+		}
+		Language.setLanguageTag(languageTag);
+
+//		operation = new DateTimeInstance();
 		Thread opThread = new Thread(operation);
 		opThread.start();
 		try {
@@ -29,7 +61,7 @@ public class DateTime {
 			CustomScanner.sc.nextLine();
 
 			if (choice != 'e') {
-				calcRunner();
+				operationRunner();
 			}
 		} catch (InterruptedException e) {
 			System.out.println("Date Time Instance failed due to Interrupted Ex");
@@ -37,61 +69,25 @@ public class DateTime {
 		}
 	}
 
-	class DateTimeInstance implements Runnable {
+	public void calcRunner() {
 
-		private boolean checkChoice(char choice) {
-			if (choice == 'a' || choice == 'h' || choice == 'c' || choice == 'p' || choice == 'i') {
-				return true;
+		// Persist and record session operations
+		LocalDateTime date = LocalDateTime.now();
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("ddMMyyyyHms");
+		String fileName = date.format(formatter);
+
+		Record.setFileName(
+				"C:\\Users\\user\\eclipse-workspace\\dateTimeCalculator\\Data\\SessionHistory\\" + fileName + ".csv");
+		System.out.println(Record.getFileName());
+		File sessionHistory = new File(Record.getFileName());
+		try {
+			if (sessionHistory.createNewFile()) {
+				System.out.println("File created");
 			}
-			return false;
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
-
-		private void serviceProvider(char choice) throws InterruptedException {
-			if (choice == 'a') {
-				AboutToday today = new AboutToday();
-				Thread todayThread = new Thread(today);
-				todayThread.start();
-				todayThread.join();
-			}
-			if (choice == 'c') {
-				GoTo goTo = new GoTo();
-				Thread goToThread = new Thread(goTo);
-				goToThread.start();
-				goToThread.join();
-			}
-			if (choice == 'h') {
-				History.getSessionHistory();
-			}
-			if(choice == 'p') {
-				Translator translator = new Translator();
-				Thread tThread = new Thread(translator);
-				tThread.start();
-				tThread.join();
-			}
-			if(choice == 'i') {
-				FileOperations.operateFileRequest();
-			}
-		}
-
-		public void run() {
-			System.out.println("Date Time Calculator");
-			System.out.println("Press a to know about today");
-			System.out.println("Press h to check history of operations in this session");
-			System.out.println("Press c to calculate date");
-			System.out.println("Press i to take input from file. (Paste the file in Data folder with the name input.csv)");
-			System.out.println("Press p to go to a date by entering phrases");
-			System.out.println("Choose operation");
-
-			try {
-				char choice = CustomScanner.sc.findInLine(".").charAt(0);
-				CustomScanner.sc.nextLine();
-				if (checkChoice(choice)) {
-					serviceProvider(choice);
-				}
-			} catch (Exception NoSuchElementException) {
-				System.out.println("Failed to allocate resources for scanner");
-				NoSuchElementException.printStackTrace();
-			}
-		}
+		operationRunner();
 	}
+
 }

@@ -6,6 +6,8 @@ package dateTimeCalculator;
 import java.io.IOException;
 import java.time.LocalDate;
 
+import org.springframework.stereotype.Component;
+
 import inputOutput.Record;
 import language.Language;
 
@@ -13,6 +15,8 @@ import language.Language;
  * @author Garvit Jain
  *
  */
+
+@Component
 public class GoTo implements Runnable {
 
 	public void run() {
