@@ -23,7 +23,6 @@ import language.Language;
 public class AboutToday implements Runnable {
 
 	public static void findResult(char choice) {
-		System.out.println("at");
 		String languageTag = Language.getLanguageTag();
 		Locale locale = new Locale(languageTag);
 		LocalDate today = LocalDate.now();

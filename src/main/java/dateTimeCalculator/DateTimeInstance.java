@@ -3,6 +3,8 @@
  */
 package dateTimeCalculator;
 
+import java.io.IOException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -28,7 +30,7 @@ class DateTimeInstance implements Runnable {
 	private Translator translator;
 
 	private boolean checkChoice(char choice) {
-		if (choice == 'a' || choice == 'h' || choice == 'c' || choice == 'p' || choice == 'i') {
+		if (choice == 'a' || choice == 'h' || choice == 's' || choice == 'c' || choice == 'p' || choice == 'i') {
 			return true;
 		}
 		return false;
@@ -48,7 +50,20 @@ class DateTimeInstance implements Runnable {
 			goToThread.join();
 		}
 		if (choice == 'h') {
-			System.out.println(History.getSessionHistory());
+			try {
+				History.getSessionHistory();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		if (choice == 's') {
+			System.out.println("Enter file path");
+			String filePath = CustomScanner.sc.nextLine();
+			try {
+				History.getHistory(filePath);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
 		if (choice == 'p') {
 //			translator = new Translator();
@@ -65,6 +80,7 @@ class DateTimeInstance implements Runnable {
 		System.out.println("Date Time Calculator");
 		System.out.println("Press a to know about today");
 		System.out.println("Press h to check history of operations in this session");
+		System.out.println("Press s to check history of a particular session");
 		System.out.println("Press c to calculate date");
 		System.out.println("Press i to take input from file. (Paste the file in Data folder with the name input.csv)");
 		System.out.println("Press p to go to a date by entering phrases");

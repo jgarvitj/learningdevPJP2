@@ -3,9 +3,12 @@
  */
 package dateTimeCalculator;
 
+import java.io.IOException;
+
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -59,8 +62,13 @@ public class Home {
 	}
 
 	@GetMapping(path = "/history")
-	public String getSessionHistory() {
-		return History.getSessionHistory();
+	public void getSessionHistory() throws IOException {
+		History.getSessionHistory();
+	}
+
+	@GetMapping(path = "/history/{filePath}")
+	public void getHistory(@PathVariable String filePath) throws IOException {
+		History.getHistory(filePath);
 	}
 
 }
